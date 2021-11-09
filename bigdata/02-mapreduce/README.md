@@ -21,24 +21,13 @@
 
 * Como parte del sistema, se instalará mrjob así:
 
->		user@master$ sudo yum install python-pip
->		user@master$ sudo pip install --upgrade pip
->		user@master$ sudo pip install mrjob
-
-* (OPCIONAL) Si desea utilizar un manejador de versiones de python en su propio, puede ser así:
-
-primero instalar pyenv (https://github.com/pyenv/pyenv-installer)
-
->		user@master$ curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
->		user@master$ pyenv update
->		user@master$ pyenv install 2.7.13
->		user@master$ pyenv local 2.7.13
->		user@master$ pip install mrjob
+>		user@master$ sudo yum install python3-pip
+>		user@master$ sudo pip3 install mrjob
 
 * Probar mrjob python local:
 
 >		user@master$ cd 02-mapreduce
->		user@master$ python wordcount-mr.py /datasets/gutenberg-small/*.txt
+>		user@master$ python wordcount-mr.py ./datasets/gutenberg-small/*.txt
 
 * Ejecutar mrjob python en Hadoop con datos en hdfs o s3:
 
