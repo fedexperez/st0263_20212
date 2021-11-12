@@ -14,7 +14,7 @@ LAB 0: Crear un Cluster AWS EMR en Amazon para trabajar todos los demás laborat
 
 3. seguir los lineamientos del github:
 
-https://github.com/st0263eafit/st026320212/tree/main/bigdata
+https://github.com/st0263eafit/st0263_20212/tree/main/bigdata
 
 HACER LAS ACTIVIDADES PROPUESTAS EN LOS VIDEOS:
 

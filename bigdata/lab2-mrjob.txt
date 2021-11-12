@@ -68,7 +68,7 @@ Tenerlo listo para martes (9 de noviembre)
 
 Github actualizado en:
 
-https://github.com/st0263eafit/st026320212/tree/main/bigdata/02-mapreduce
+https://github.com/st0263eafit/st0263_20212/tree/main/bigdata/02-mapreduce
 
-https://github.com/st0263eafit/st026320212.git
+https://github.com/st0263eafit/st0263_20212.git
 

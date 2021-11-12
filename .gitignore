@@ -1,6 +1,3 @@
 bigdata/profesor
-bigdata/03-spark
 bigdata/04-hive-sparksql
-bigdata/lab3-pyspark-wordcount.txt
-bigdata/lab4-pyspark.txt
-bigdata/lab5-hive-glue.txt
+bigdata/lab4-hive-glue.txt
