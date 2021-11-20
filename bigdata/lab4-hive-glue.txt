@@ -1,15 +1,16 @@
 ST0263 TÓPICOS ESPECIALES EN TELEMÁTICA, 2021-2
 
-LAB 4 - Hive SQL y Spark SQL
+LAB 4 - Hive SQL y AWS Glue/Athena
 
-1. basado en los datos más recientes de covid19 en Colombia, sobre los cuales uds en lab3 contestaron 5 preguntas de negocio con procesamiento en Dataframes, ahora en este lab4, uds contestarán las mismas preguntas PERO en SQL en los siguientes ambientes:
+1. basado en los datos más recientes de covid19 en Colombia, sobre los cuales uds en lab3 contestaron 5 preguntas de negocio con procesamiento en Dataframes,
+ ahora en este lab4, uds contestarán las mismas preguntas PERO en SQL en los siguientes ambientes:
 
-1.1. AWS EMR / Hue / Con tablas EXTERNAS con datos en S3 (HIVE: para la creación de la tabla y responder las preguntas de negocio)
-1.2. AWS EMR / Notebooks / Con datos externos en S3 (SPARK SQL: ver ejemplo 'sparksql-onu-jupyter.ipynb') (carga de datos en dataframes, creación de tabla temporal sql y responden en SQL las preguntas de negocio)
-1.3. AWS EMR nodo master - ssh / beeline / Con tablas MANEJADAS en HDFS (HIVE: para la creación de la tabla manejada, carga de datos y respuesta las preguntas de negocio en SQL)
-1.4. AWS EMR Zeppelin / usando la tabla creada en 3. (SPARK SQL: carga de datos en Dataframes, creación de tabla temporal, contestar las preguntas de negocio con spark.sql("sentencias SQL") y con %sql SQL PURO. use como ejemplo el notebook: spark-onu-zeppelin.json)
-1.5. AWS Glue - Para catalogar los datos de covid en S3 y generar tablas SQL para ser consultadas en AWS Athena y EMR/Hive o Spark
-1.6. AWS Athena - Para consultar datos en SQL de AWS Glue o EMR/Hime
+1.1. AWS EMR / Hue / Con tablas EXTERNAS HIVE con datos en S3 (HIVE: debe crear la tabla y responder las 
+preguntas de negocio) - nombre tabla = 'covid1'
+1.2. AWS EMR Zeppelin / usando la tabla creada en 1.1, Reponde las preguntas de negocio en SQL (%sql) y SparkSQL (%spark.pyspark con el objeto sparl.sql("Select ..."))
+use como ejemplo el notebook: spark-onu-zeppelin.json)
+1.3. AWS Glue - Catalogue los datos de covid en S3 y generar una tabla SQL para ser consultadas en AWS Athena y EMR/Hive o SparkSQL
+1.4. AWS Athena - Para consultar datos en SQL de AWS Glue o EMR/Hime
 
 ## 2. Preguntas de negocio (Responder en SQL):
 
@@ -23,22 +24,71 @@ LAB 4 - Hive SQL y Spark SQL
 
 ### en EMR / Hive / S3: (tabla externa)
 
-CREATE EXTERNAL TABLE covidcolombia (`fecha reporte web` string, `ID de caso` int, `Fecha de notificación` string, `Código DIVIPOLA departamento` int, `Nombre departamento` string, `Código DIVIPOLA municipio` int, `Nombre municipio` string, `Edad` int, `Unidad de medida de edad` int, `Sexo` string, `Tipo de contagio` string, `Ubicación del caso` string, `Estado` string, `Código ISO del país` int, `Nombre del país` string, `Recuperado` string, `Fecha de inicio de síntomas` string, `Fecha de muerte` string, `Fecha de diagnóstico` string, `Fecha de recuperación` string, `Tipo de recuperación` string, `Pertenencia étnica` int, `Nombre del grupo étnico` string)
-ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
+CREATE EXTERNAL TABLE `tablecovid2`(
+  `fecha reporte web` string, 
+  `id de caso` bigint, 
+  `fecha de notificación` string, 
+  `código divipola departamento` bigint, 
+  `nombre departamento` string, 
+  `código divipola municipio` bigint, 
+  `nombre municipio` string, 
+  `edad` bigint, 
+  `unidad de medida de edad` bigint, 
+  `sexo` string, 
+  `tipo de contagio` string, 
+  `ubicación del caso` string, 
+  `estado` string, 
+  `código iso del país` bigint, 
+  `nombre del país` string, 
+  `recuperado` string, 
+  `fecha de inicio de síntomas` string, 
+  `fecha de muerte` string, 
+  `fecha de diagnóstico` string, 
+  `fecha de recuperación` string, 
+  `tipo de recuperación` string, 
+  `pertenencia étnica` bigint, 
+  `nombre del grupo étnico` string)
+ROW FORMAT DELIMITED 
+  FIELDS TERMINATED BY ',' 
 STORED AS TEXTFILE 
-LOCATION 's3://<bucketname>/datasets/covid/'
+LOCATION
+  's3://st0263datasets/tablecovid/'
 
 ### en EMR / Hive / HDFS: (tabla manejada)
 
-CREATE TABLE covidcolombia (`fecha reporte web` string, `ID de caso` int, `Fecha de notificación` string, `Código DIVIPOLA departamento` int, `Nombre departamento` string, `Código DIVIPOLA municipio` int, `Nombre municipio` string, `Edad` int, `Unidad de medida de edad` int, `Sexo` string, `Tipo de contagio` string, `Ubicación del caso` string, `Estado` string, `Código ISO del país` int, `Nombre del país` string, `Recuperado` string, `Fecha de inicio de síntomas` string, `Fecha de muerte` string, `Fecha de diagnóstico` string, `Fecha de recuperación` string, `Tipo de recuperación` string, `Pertenencia étnica` int, `Nombre del grupo étnico` string)
-ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
-STORED AS TEXTFILE 
+CREATE TABLE `tablecovid3`(
+  `fecha reporte web` string, 
+  `id de caso` bigint, 
+  `fecha de notificación` string, 
+  `código divipola departamento` bigint, 
+  `nombre departamento` string, 
+  `código divipola municipio` bigint, 
+  `nombre municipio` string, 
+  `edad` bigint, 
+  `unidad de medida de edad` bigint, 
+  `sexo` string, 
+  `tipo de contagio` string, 
+  `ubicación del caso` string, 
+  `estado` string, 
+  `código iso del país` bigint, 
+  `nombre del país` string, 
+  `recuperado` string, 
+  `fecha de inicio de síntomas` string, 
+  `fecha de muerte` string, 
+  `fecha de diagnóstico` string, 
+  `fecha de recuperación` string, 
+  `tipo de recuperación` string, 
+  `pertenencia étnica` bigint, 
+  `nombre del grupo étnico` string)
+ROW FORMAT DELIMITED 
+  FIELDS TERMINATED BY ',' 
+STORED AS TEXTFILE
 
 ENTREGABLES:
 
 Cada alumno enviará al profesor:
 
-      El notebook .ipynb (EMR) Y el zeppellin (HDP) donde desarrolla los numerales 2.x
+    *  El notebook .ipynb Y el zeppellin donde desarrolla los numerales 2.x
 
       Documento .txt o docx donde coloca TODOS los scripts SQL utilizados y registra las líneas de salida de cada comando SQL.
 
